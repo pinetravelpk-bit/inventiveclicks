@@ -24,6 +24,18 @@ The production preview opens at http://localhost:3000. Set `PORT` to change its 
 
 Upload the **contents** of `out/` to a static host, or import the source into a Next.js-compatible host with build command `npm run build` and output directory `out`. Connect inventiveclicks.com in your hosting provider and update DNS there. The ZIP does not change your domain settings.
 
+## Live deployment (Hostinger VPS)
+
+inventiveclicks.com is served by nginx on the VPS (72.62.193.221) from `/var/www/inventiveclicks/current`, which points at the latest folder in `releases/`. The site config is `/etc/nginx/sites-available/inventiveclicks.com` (clean URLs via `try_files $uri $uri.html`).
+
+To publish changes, add an `inventiveclicks-vps` host to `~/.ssh/config` with a key authorised on the server, then run:
+
+```sh
+bash scripts/deploy-vps.sh
+```
+
+To roll back, point `current` at an earlier folder: `ln -sfn /var/www/inventiveclicks/releases/<folder> /var/www/inventiveclicks/current`.
+
 ## Customize
 
 - `app/page.tsx`: homepage and hero slides.
