@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function NotFound(){return <main className="container not-found"><span className="pill">404 / PAGE NOT FOUND</span><h1>Let’s get you<br/>back on track.</h1><p>This page is not available. Explore our services or return to the homepage.</p><div className="inner-actions"><Link className="primary" href="/">Back to Home</Link><Link className="outline" href="/services">Explore Services</Link></div></main>}

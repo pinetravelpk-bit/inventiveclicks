@@ -1,0 +1,6 @@
+import type { Metadata } from 'next';
+import './globals.css';
+import {FloatingContact} from '../components/ContactActions';
+import {JsonLd,siteUrl} from '../components/StructuredData';
+export const metadata: Metadata = { icons: { icon: '/favicon.svg' }, title: 'Inventive Clicks | Digital Marketing, SEO & Web Development', description: 'A creative and performance digital agency. Digital marketing, SEO, PPC, web development, branding, e-commerce and remote staffing.', metadataBase: new URL('https://inventiveclicks.com'), alternates:{canonical:'/'}, openGraph:{type:'website',siteName:'Inventive Clicks',locale:'en_US'}, twitter:{card:'summary'}, robots:{index:true,follow:true} };
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><JsonLd data={{'@type':'Organization','@id':siteUrl+'/#organization',name:'Inventive Clicks',url:siteUrl,description:'Creative and performance agency providing digital marketing, SEO, PPC, web development, branding, content, e-commerce and remote staffing.'}}/><JsonLd data={{'@type':'WebSite','@id':siteUrl+'/#website',name:'Inventive Clicks',url:siteUrl,publisher:{'@id':siteUrl+'/#organization'}}}/>{children}<FloatingContact/></body></html>}

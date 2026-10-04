@@ -1,0 +1,11 @@
+import type {Metadata} from 'next';
+import {JsonLd,BreadcrumbData,siteUrl} from '../../../../components/StructuredData';
+import Link from 'next/link';
+import {notFound} from 'next/navigation';
+import {ArrowRight} from 'lucide-react';
+import {articles} from '../../../../lib/content';
+import {Breadcrumb,CTA,Tag,IconArt,Checklist} from '../../../../components/Inner';
+export const dynamicParams=false;
+export function generateStaticParams(){return articles.map(a=>({slug:a.slug}))}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const a=articles.find(x=>x.slug===slug);return a?{title:`${a.title} | Inventive Clicks`,description:a.summary,alternates:{canonical:`/blog/${slug}`}}:{title:'Not found'}}
+export default async function Article({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const a=articles.find(x=>x.slug===slug);if(!a)notFound();return <><JsonLd data={{'@type':'BlogPosting',headline:a.title,description:a.summary,mainEntityOfPage:siteUrl+'/blog/'+a.slug,author:{'@type':'Organization',name:'Inventive Clicks Editorial',url:siteUrl+'/about'},publisher:{'@id':siteUrl+'/#organization'}}}/><BreadcrumbData items={[{name:'Blog',path:'/blog'},{name:a.title,path:'/blog/'+a.slug}]}/><Breadcrumb items={[{label:'Blog',href:'/blog'},{label:a.category}]}/><article className="container editorial"><header className="article-heading"><Tag>{a.category.toUpperCase()}</Tag><h1>{a.title}</h1><p>{a.summary}</p><div className="article-meta">Inventive Clicks Editorial · {a.read}</div></header><div className="editorial-cover"><IconArt index={a.icon}/><span>Ideas that move<br/>your business forward.</span></div><div className="editorial-layout"><div className="article-body">{a.sections.map(([title,text],i)=><section key={title} id={`point-${i+1}`}><span className="panel-number">0{i+1}</span><h2>{title}</h2><p>{text}</p></section>)}<Link className="outline" href="/blog">More Insights <ArrowRight size={16}/></Link></div><aside className="article-aside"><Tag>KEEP THIS IN MIND</Tag><h3>Your practical checklist.</h3><Checklist items={a.takeaways}/><Link className="card-link" href="/contact">Discuss your next project <ArrowRight size={16}/></Link></aside></div></article><CTA/></>}
