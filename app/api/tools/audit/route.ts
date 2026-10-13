@@ -1,9 +1,11 @@
 import {runAudit,type Report} from '../../../../lib/audit';
 import {normalizeInput} from '../../../../lib/audit/net';
+import {preview,storeReport} from '../../../../lib/audit/leads';
 export const dynamic='force-dynamic';
 export const runtime='nodejs';
 export const maxDuration=90;
 
+// Returns a preview only; the full report is released by /api/tools/audit/unlock.
 const DAILY=Number(process.env.AUDITS_PER_IP_PER_DAY)||10;
 const ips=new Map<string,{day:string;n:number}>();
 const cache=new Map<string,{at:number;report:Report}>();
@@ -18,7 +20,7 @@ export async function POST(req:Request){
   const deep=body.deep!==false;const key=url+'|'+deep;
 
   const hit=cache.get(key);
-  if(hit&&Date.now()-hit.at<30*60e3) return json(hit.report);
+  if(hit&&Date.now()-hit.at<30*60e3) return json(preview(storeReport(hit.report),hit.report));
 
   // Behind Cloudflare the visitor IP arrives in CF-Connecting-IP.
   const ip=req.headers.get('cf-connecting-ip')||req.headers.get('x-real-ip')||'unknown';
@@ -33,6 +35,6 @@ export async function POST(req:Request){
     const report=await job.finally(()=>running.delete(key));
     cache.set(key,{at:Date.now(),report});
     if(cache.size>300)cache.delete(cache.keys().next().value!);
-    return json(report);
+    return json(preview(storeReport(report),report));
   }catch(e){return json({error:e instanceof Error?e.message:'The audit failed. Please try again.'},502)}
 }

@@ -43,14 +43,21 @@ To roll back, check out an earlier commit in `/var/www/inventiveclicks/app` as t
 
 Tools are listed in `lib/tools.ts` and shown on `/tools`. Add a tool by adding an entry there and a page under `app/(inner)/tools/<slug>/`.
 
-**Website Deep Audit** (`/tools/website-audit`, code in `lib/audit/` and `components/SiteAudit.tsx`) runs on our own server with no API keys: 50+ checks across on-page SEO, technical SEO, speed, security, AI search readiness and links, plus an optional crawl of up to 25 pages. Requests to private or internal addresses are blocked.
+**Website Deep Audit** (`/tools/website-audit`, code in `lib/audit/` and `components/SiteAudit.tsx`) runs on our own server with no paid API keys: 100+ checks in 14 areas (on-page, technical, speed, mobile and accessibility, security, local SEO, off-page and authority, AEO, GEO and AI search, content and E-E-A-T, social and tracking, links, broken pages and a site-wide crawl of up to 25 pages). Off-page signals come from free public sources: Tranco, RDAP, the Internet Archive and Wikidata. Requests to private or internal addresses are blocked.
 
-Optional settings in `/etc/inventiveclicks.env`:
+Visitors see their score and category scores first. The server releases the full report only after they submit name, email and phone (`/api/tools/audit/unlock`). Leads are stored in `/var/lib/inventiveclicks/leads.jsonl` and listed at **https://inventiveclicks.com/admin/leads** (user `admin`, password = `ADMIN_PASSWORD` in `/etc/inventiveclicks.env`), with a CSV download.
+
+Settings in `/etc/inventiveclicks.env`:
 
 | Variable | Used for |
 |---|---|
-| `PAGESPEED_API_KEY` | Adds Google PageSpeed (Core Web Vitals) scores to each report |
+| `ADMIN_PASSWORD` | Password for /admin/leads (12+ characters; the page is off when empty) |
+| `PAGESPEED_API_KEY` | Optional: adds Google PageSpeed (Core Web Vitals) scores |
 | `AUDITS_PER_IP_PER_DAY` | Daily audits per visitor (default 10) |
+
+## Brand assets
+
+The logo source is `public/brand/ic-logo-source.png`. Run `node scripts/make-share-images.mjs` to regenerate the header logo, favicons, schema logo and social share image from it.
 
 ## Customize
 
@@ -64,7 +71,7 @@ Optional settings in `/etc/inventiveclicks.env`:
 - `public/images/`: high-resolution generated artwork optimized for delivery.
 - `public/design-reference.png`: supplied original logo source; preserved for fidelity.
 - `app/layout.tsx`: title, description, favicon, canonical metadata base.
-- `public/favicon.svg`: editable small brand favicon.
+- `public/brand/`: Inventive Clicks logo (source and header version).
 - `ASSETS.md`: image sources and generation notes.
 
 Fonts load from Google Fonts, with local system fallbacks if unavailable. All artwork is bundled locally. Animation uses CSS and browser APIs without animation libraries or WebGL dependencies. Pointer tilt applies only to mouse/fine-pointer devices. Reduced-motion settings disable animation and tilt. Content remains readable with JavaScript disabled.
