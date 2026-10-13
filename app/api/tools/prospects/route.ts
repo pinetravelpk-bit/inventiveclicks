@@ -1,4 +1,5 @@
-import {analyse,discover,limits,providers,rootDomain,takeQuota} from '../../../../lib/prospects';
+import {analyse,discover,limits,providers,rootDomain,takeQuota,type ProspectMeta} from '../../../../lib/prospects';
+import {opportunities,categories} from '../../../../lib/link-opportunities';
 export const dynamic='force-dynamic';
 export const runtime='nodejs';
 
@@ -7,11 +8,21 @@ const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache
 export function GET(){return json({providers:providers(),limits:{domainsPerCheck:limits.domainsPerCheck,checksPerDay:limits.checksPerIpPerDay}})}
 
 export async function POST(req:Request){
-  let body:{mode?:string;keyword?:string;location?:string;domains?:string};
+  let body:{mode?:string;keyword?:string;location?:string;domains?:string;niche?:string;categories?:string[]};
   try{body=await req.json()}catch{return json({error:'Invalid request.'},400)}
   const p=providers();
   // Behind Cloudflare the visitor IP arrives in CF-Connecting-IP; nginx adds X-Real-IP otherwise.
   const ip=req.headers.get('cf-connecting-ip')||req.headers.get('x-real-ip')||'unknown';
+
+  // Built-in verified list: no search key needed and no per-visitor quota (results are cached).
+  if(body.mode==='curated'){
+    const cats=new Set((body.categories||[]).filter(c=>categories.some(x=>x.id===c)));
+    const picked=opportunities.filter(o=>(!cats.size||cats.has(o.category))&&(!body.niche||body.niche==='all'||o.niches==='all'||o.niches.includes(body.niche as never)));
+    const meta=new Map<string,ProspectMeta>();
+    for(const o of picked){const d=rootDomain(o.url);if(d&&!meta.has(d))meta.set(d,{name:o.name,category:o.category,note:o.note,region:o.region,guestPostUrl:o.url,foundVia:'Verified list'});}
+    if(!meta.size) return json({results:[],warnings:['No websites match this niche and type. Try All niches.']});
+    return json(await analyse([...meta.keys()],meta,200));
+  }
 
   if(body.mode==='keyword'){
     const keyword=(body.keyword||'').trim();

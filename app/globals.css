@@ -94,3 +94,10 @@ body{background-image:radial-gradient(ellipse at 78% 7%,#13357329,transparent 30
 .tool-attribution a{color:#cdb6ff}
 .tool-guide{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:start}
 @media (max-width:820px){.tool-guide{grid-template-columns:1fr}.tool-count{margin-left:0;width:100%}}
+.tool-cats{border:1px solid #2a3a52;border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 18px;margin:0}
+.tool-cats legend{padding:0 6px;font-size:14px;color:#d0d7e6}
+.tool-cats .checkbox-label{font-size:14px}
+.tool-site{display:block;color:#f2f5fc;font-size:14px;margin-bottom:2px}
+.tool-type{color:#c3cbdb;font-size:13px;white-space:nowrap}
+.tool-go{white-space:nowrap;font-weight:600}
+.status.protected{background:#10283a;color:#7cc8ff}

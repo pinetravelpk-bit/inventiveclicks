@@ -5,10 +5,12 @@ import {promises as dns} from 'node:dns';
 import {isIP} from 'node:net';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
+import {trancoRanks} from './tranco';
 
-export type Verification = {status:'verified'|'redirects'|'unreachable'|'parked'|'error'; httpStatus?:number; https:boolean; finalUrl?:string; title?:string; note?:string};
-export type Prospect = {
-  domain:string;
+export type Verification = {status:'verified'|'protected'|'redirects'|'unreachable'|'parked'|'error'; httpStatus?:number; https:boolean; finalUrl?:string; title?:string; note?:string};
+export type ProspectMeta = {guestPostUrl?:string; foundVia?:string; name?:string; category?:string; note?:string; region?:string};
+export type Prospect = ProspectMeta & {
+  domain:string; trancoRank:number|null;
   da:number|null; pa:number|null; spamScore:number|null; linkingDomains:number|null;
   openPageRank:number|null; opr_referringDomains:number|null;
   verification:Verification;
@@ -144,9 +146,9 @@ async function isPublicHost(host:string){
 const decode=(t:string)=>t.replace(/&(amp|lt|gt|quot|#39|apos|nbsp);/g,(_,e:string)=>({amp:'&',lt:'<',gt:'>',quot:'"','#39':"'",apos:"'",nbsp:' '} as Record<string,string>)[e]).replace(/&#(\d+);/g,(_,n:string)=>String.fromCharCode(Number(n)));
 const PARKED = /domain (is )?for sale|buy this domain|parked (free|domain)|this domain may be for sale|sedoparking|domain has expired|hugedomains/i;
 
-export async function verify(domain:string):Promise<Verification>{
-  let url = `https://${domain}/`;
-  for(let hop=0; hop<4; hop++){
+export async function verify(domain:string, start?:string):Promise<Verification>{
+  let url = start || `https://${domain}/`;
+  for(let hop=0; hop<6; hop++){
     const host = new URL(url).hostname;
     if(!(await isPublicHost(host))) return {status:'unreachable',https:false,note:'Domain does not resolve to a public server'};
     let res:Response;
@@ -155,6 +157,10 @@ export async function verify(domain:string):Promise<Verification>{
     if(res.status>=300 && res.status<400 && res.headers.get('location')){ url = new URL(res.headers.get('location')!,url).toString(); continue; }
     const https = url.startsWith('https:');
     const finalRoot = rootDomain(url);
+    // Bot protection (Cloudflare, AWS WAF, etc.) answers automated checks with a challenge: the site is up.
+    if([202,403,429,503].includes(res.status) && (res.headers.get('cf-mitigated') || res.headers.get('x-amzn-waf-action') || /cloudflare|akamai|varnish|awselb|ddos-guard|sucuri/i.test(res.headers.get('server')||'')))
+      return {status:'protected',https:url.startsWith('https:'),httpStatus:res.status,finalUrl:url,note:'Live; the site blocks automated checks, so open it in your browser'};
+    if([403,429].includes(res.status)){ const body=(await res.text().catch(()=>'')).slice(0,30000); if(/captcha|challenge|just a moment|access denied|are you a robot|verify you are human|bot/i.test(body)) return {status:'protected',https:url.startsWith('https:'),httpStatus:res.status,finalUrl:url,note:'Live; the site blocks automated checks, so open it in your browser'}; }
     if(res.status>=400) return {status:'error',https,httpStatus:res.status,finalUrl:url,note:`Homepage returned HTTP ${res.status}`};
     const html = (await res.text()).slice(0,200000);
     const rawTitle = html.match(/<title[^>]*>([^<]{0,160})/i)?.[1]?.replace(/\s+/g,' ').trim();
@@ -173,18 +179,19 @@ async function mapLimit<T,R>(items:T[],n:number,fn:(t:T)=>Promise<R>){
 }
 
 // ---------- main entry ----------
-export async function analyse(domains:string[], meta:Map<string,{guestPostUrl?:string;foundVia?:string}> = new Map()){
+export async function analyse(domains:string[], meta:Map<string,ProspectMeta> = new Map(), max = limits.domainsPerCheck){
   const s = await load(); const p = providers(); const warnings:string[] = [];
-  const list = [...new Set(domains)].slice(0,limits.domainsPerCheck);
+  const list = [...new Set(domains)].slice(0,max);
   const stale = list.filter(d=>!fresh(s.domains[d]));
   for(const d of stale) s.domains[d] = {at:Date.now()};
   const needMoz = p.moz ? list.filter(d=>!s.domains[d].moz) : [];
   const needOpr = p.openPageRank ? list.filter(d=>!s.domains[d].opr) : [];
   type MozMap=Awaited<ReturnType<typeof mozMetrics>>; type OprMap=Awaited<ReturnType<typeof openPageRank>>;
-  const [moz,opr,ver] = await Promise.all([
+  const [moz,opr,ver,tranco] = await Promise.all([
     needMoz.length ? mozMetrics(needMoz).catch((e):MozMap=>{warnings.push(String(e.message||e)); return {};}) : Promise.resolve<MozMap>({}),
     needOpr.length ? openPageRank(needOpr).catch((e):OprMap=>{warnings.push(String(e.message||e)); return {};}) : Promise.resolve<OprMap>({}),
-    mapLimit(stale,8,verify),
+    mapLimit(stale,8,d=>verify(d,meta.get(d)?.guestPostUrl)),
+    trancoRanks(list).catch(()=>({} as Record<string,number|null>)),
   ]);
   stale.forEach((d,i)=>{ s.domains[d].verification = ver[i]; });
   for(const [d,m] of Object.entries(moz)) if(s.domains[d]) s.domains[d].moz = m;
@@ -192,7 +199,7 @@ export async function analyse(domains:string[], meta:Map<string,{guestPostUrl?:s
   if(p.moz && needMoz.some(d=>!s.domains[d].moz) && !warnings.length) warnings.push('The monthly Moz allowance has been reached, so some DA, PA and Spam Score values are unavailable.');
   save();
   const results:Prospect[] = list.map(d=>{const e=s.domains[d]||{at:0};return {
-    domain:d, da:e.moz?.da??null, pa:e.moz?.pa??null, spamScore:e.moz?.spam??null, linkingDomains:e.moz?.lrd??null,
+    domain:d, trancoRank:tranco[d]??null, da:e.moz?.da??null, pa:e.moz?.pa??null, spamScore:e.moz?.spam??null, linkingDomains:e.moz?.lrd??null,
     openPageRank:e.opr?.rank??null, opr_referringDomains:e.opr?.rd??null,
     verification:e.verification||{status:'error',https:false,note:'Not checked'}, ...meta.get(d)};});
   return {results,warnings,providers:p};
