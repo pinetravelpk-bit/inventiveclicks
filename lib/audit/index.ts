@@ -60,7 +60,7 @@ function robotsBlocks(robots:string,bot:string){
 function readability(t:string){
   const sentences=t.split(/[.!?]+\s/).filter(s=>countWords(s)>2);const w=countWords(t);if(!sentences.length||w<50)return null;
   const syl=t.toLowerCase().split(/\s+/).reduce((s,word)=>s+Math.max(1,(word.replace(/[^a-z]/g,'').replace(/e$/,'').match(/[aeiouy]+/g)||[]).length),0);
-  return {ease:Math.round(206.835-1.015*(w/sentences.length)-84.6*(syl/w)),avgSentence:Math.round(w/sentences.length)};
+  return {ease:Math.max(0,Math.min(100,Math.round(206.835-1.015*(w/sentences.length)-84.6*(syl/w)))),avgSentence:Math.round(w/sentences.length)};
 }
 
 function score(checks:Check[]){const scored=checks.filter(x=>x.status!=='info');const total=scored.reduce((s,x)=>s+x.weight,0);if(!total)return 100;return Math.round(scored.reduce((s,x)=>s+x.weight*(x.status==='pass'?1:x.status==='warn'?0.5:0),0)/total*100)}
@@ -195,7 +195,8 @@ export async function runAudit(input:string,deep:boolean):Promise<Report>{
   const year=new Date().getFullYear();const copyright=new RegExp(`(©|copyright)[^\\n]{0,40}${year}`,'i').test(pageText);
   const numbers=(pageText.match(/\b\d+(\.\d+)?\s?(%|percent|x|k|m|million|billion|years?|customers|clients|projects)\b/gi)||[]).length;
   const authorityLinks=external.filter(u=>/\.(gov|edu)(\.[a-z]{2})?\//i.test(u)||/wikipedia\.org|who\.int|nih\.gov|google\.com\/search\/docs|developers\.google\.com|w3\.org/i.test(u)).length;
-  const read=readability(pageText);
+  // Measure readability on paragraph copy only; menus and buttons are not sentences.
+  const read=readability(root.querySelectorAll('p,li').map(p=>text(p)).filter(t=>countWords(t)>=8).map(t=>/[.!?]$/.test(t)?t:t+'.').join(' '));
   const h1Text=text(root.querySelector('h1')).toLowerCase();const titleWords=P.title.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(w=>w.length>3);
   const titleH1Overlap=h1Text&&titleWords.some(w=>h1Text.includes(w));
   const analytics=[[/googletagmanager\.com\/gtm|GTM-[A-Z0-9]+/,'Google Tag Manager'],[/gtag\(|googletagmanager\.com\/gtag|G-[A-Z0-9]{6,}/,'Google Analytics 4'],[/clarity\.ms/,'Microsoft Clarity'],[/plausible\.io|umami|matomo|fathom|simpleanalytics/i,'Privacy analytics'],[/connect\.facebook\.net|fbq\(/,'Meta Pixel'],[/hotjar/i,'Hotjar']].filter(([re])=>(re as RegExp).test(allJs)).map(([,n])=>n as string);
