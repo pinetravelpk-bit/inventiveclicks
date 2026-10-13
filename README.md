@@ -41,16 +41,16 @@ To roll back, check out an earlier commit in `/var/www/inventiveclicks/app` as t
 
 ## Free SEO tools
 
-`/tools/backlink-prospect-finder` finds niche websites (Brave Search API), adds DA, PA and Spam Score (Moz Links API) and Open PageRank, and checks each homepage is live over HTTPS. Keys live only on the server, in `/etc/inventiveclicks.env`:
+Tools are listed in `lib/tools.ts` and shown on `/tools`. Add a tool by adding an entry there and a page under `app/(inner)/tools/<slug>/`.
+
+**Website Deep Audit** (`/tools/website-audit`, code in `lib/audit/` and `components/SiteAudit.tsx`) runs on our own server with no API keys: 50+ checks across on-page SEO, technical SEO, speed, security, AI search readiness and links, plus an optional crawl of up to 25 pages. Requests to private or internal addresses are blocked.
+
+Optional settings in `/etc/inventiveclicks.env`:
 
 | Variable | Used for |
 |---|---|
-| `MOZ_TOKEN` (or `MOZ_ACCESS_ID` + `MOZ_SECRET_KEY`) | DA, PA, Spam Score |
-| `OPEN_PAGERANK_KEY` | Open PageRank |
-| `BRAVE_SEARCH_KEY` | Keyword discovery |
-| `MOZ_MONTHLY_ROW_LIMIT`, `BRAVE_MONTHLY_QUERY_LIMIT`, `TOOL_CHECKS_PER_IP_PER_DAY` | Optional caps (defaults 2000, 900, 10) |
-
-Without a key, that part of the tool is switched off and the rest keeps working. Results are cached for 30 days per domain.
+| `PAGESPEED_API_KEY` | Adds Google PageSpeed (Core Web Vitals) scores to each report |
+| `AUDITS_PER_IP_PER_DAY` | Daily audits per visitor (default 10) |
 
 ## Customize
 
