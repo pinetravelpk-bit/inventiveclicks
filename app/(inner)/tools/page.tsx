@@ -1,0 +1,8 @@
+import type {Metadata} from 'next';
+import Link from 'next/link';
+import {ArrowRight} from 'lucide-react';
+import {Breadcrumb,PageHero,CTA,Tag,IconArt} from '../../../components/Inner';
+import {BreadcrumbData} from '../../../components/StructuredData';
+import {tools} from '../../../lib/tools';
+export const metadata:Metadata={title:'Free SEO Tools | Inventive Clicks',description:'Free SEO tools from Inventive Clicks: find relevant backlink prospects and check DA, PA, Spam Score and Open PageRank in bulk.',alternates:{canonical:'/tools'}};
+export default function Tools(){return <><BreadcrumbData items={[{name:'Free Tools',path:'/tools'}]}/><Breadcrumb items={[{label:'Free Tools'}]}/><PageHero eyebrow="FREE SEO TOOLS" title="Free tools for smarter link building." summary="Practical, no-signup tools for finding relevant websites and checking their authority before you spend time on outreach." icon={1}><Link className="primary" href={'/tools/'+tools[0].slug}>Open the tool <ArrowRight size={18}/></Link></PageHero><section className="container inner-section"><div className="section-top"><div><Tag>AVAILABLE NOW</Tag><h2>Pick a tool.</h2></div><p>Every tool runs in your browser with no account needed.</p></div><div className="inner-service-grid">{tools.map(t=><Link key={t.slug} className="service-card inner-service-card" href={'/tools/'+t.slug}><IconArt index={t.icon} className="service-icon"/><h3>{t.name}</h3><p>{t.summary}</p><span className="card-link">Use the tool <ArrowRight size={16}/></span></Link>)}</div></section><CTA title="Want us to run the outreach for you?" text="We can build a vetted prospect list, write the pitches and manage placements as part of an SEO campaign."/></>}

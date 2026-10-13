@@ -1,20 +1,16 @@
 #!/usr/bin/env bash
-# Build the static site and publish it to the VPS as a new release.
+# Deploy the latest main branch to the VPS: pull from GitHub, build and restart the
+# Next.js server (systemd unit "inventiveclicks", 127.0.0.1:3110 behind nginx).
 # Usage: bash scripts/deploy-vps.sh [ssh-host]   (default: inventiveclicks-vps)
-# nginx serves /var/www/inventiveclicks/current; the last 5 releases are kept.
 set -euo pipefail
-
 HOST="${1:-inventiveclicks-vps}"
-cd "$(dirname "$0")/.."
 
-npm run build
-
-tar -czf - -C out . | ssh "$HOST" 'set -e
-  base=/var/www/inventiveclicks
-  rel=$base/releases/$(date +%Y%m%d%H%M%S)
-  mkdir -p "$rel"
-  tar -xzf - -C "$rel"
-  chown -R www-data:www-data "$base"
-  ln -sfn "$rel" "$base/current"
-  ls -1dt "$base"/releases/* | tail -n +6 | xargs -r rm -rf
-  echo "Deployed $rel"'
+ssh "$HOST" 'set -e
+  cd /var/www/inventiveclicks/app
+  sudo -u inventiveclicks git fetch -q origin main
+  sudo -u inventiveclicks git reset -q --hard origin/main
+  sudo -u inventiveclicks npm ci --no-audit --no-fund --loglevel=error
+  sudo -u inventiveclicks npm run build >/tmp/inventiveclicks-build.log 2>&1 || { tail -30 /tmp/inventiveclicks-build.log; exit 1; }
+  systemctl restart inventiveclicks
+  for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:3110/ && { echo "Deployed $(git rev-parse --short HEAD)"; exit 0; }; sleep 1; done
+  echo "Service did not come up"; journalctl -u inventiveclicks -n 30 --no-pager; exit 1'

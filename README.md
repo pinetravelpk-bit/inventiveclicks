@@ -20,21 +20,37 @@ npm run build
 npm start
 ```
 
-The production preview opens at http://localhost:3000. Set `PORT` to change its port. The project uses Next.js static export; the small included Node server serves `out/`. `next start` is not used with static export.
-
-Upload the **contents** of `out/` to a static host, or import the source into a Next.js-compatible host with build command `npm run build` and output directory `out`. Connect inventiveclicks.com in your hosting provider and update DNS there. The ZIP does not change your domain settings.
+`npm start` runs the Next.js server (`next start`) at http://localhost:3000. Set `PORT` to change its port. Pages are still pre-rendered at build time; the server also runs the API routes used by the free SEO tools.
 
 ## Live deployment (Hostinger VPS)
 
-inventiveclicks.com is served by nginx on the VPS (72.62.193.221) from `/var/www/inventiveclicks/current`, which points at the latest folder in `releases/`. The site config is `/etc/nginx/sites-available/inventiveclicks.com` (clean URLs via `try_files $uri $uri.html`).
+inventiveclicks.com runs as a Next.js server on the VPS (72.62.193.221), behind Cloudflare and nginx:
 
-To publish changes, add an `inventiveclicks-vps` host to `~/.ssh/config` with a key authorised on the server, then run:
+- App: `/var/www/inventiveclicks/app` (a clone of this repo), run by the systemd unit `inventiveclicks` on 127.0.0.1:3110.
+- Settings and API keys: `/etc/inventiveclicks.env` (root-only). After editing it, run `systemctl restart inventiveclicks`.
+- Tool cache and usage counters: `/var/lib/inventiveclicks`.
+- nginx: `/etc/nginx/sites-available/inventiveclicks.com` redirects http and www to https://inventiveclicks.com and proxies to the app.
+
+Push to `main`, then deploy with (needs an `inventiveclicks-vps` host in `~/.ssh/config`):
 
 ```sh
 bash scripts/deploy-vps.sh
 ```
 
-To roll back, point `current` at an earlier folder: `ln -sfn /var/www/inventiveclicks/releases/<folder> /var/www/inventiveclicks/current`.
+To roll back, check out an earlier commit in `/var/www/inventiveclicks/app` as the `inventiveclicks` user, run `npm run build`, then restart the service.
+
+## Free SEO tools
+
+`/tools/backlink-prospect-finder` finds niche websites (Brave Search API), adds DA, PA and Spam Score (Moz Links API) and Open PageRank, and checks each homepage is live over HTTPS. Keys live only on the server, in `/etc/inventiveclicks.env`:
+
+| Variable | Used for |
+|---|---|
+| `MOZ_TOKEN` (or `MOZ_ACCESS_ID` + `MOZ_SECRET_KEY`) | DA, PA, Spam Score |
+| `OPEN_PAGERANK_KEY` | Open PageRank |
+| `BRAVE_SEARCH_KEY` | Keyword discovery |
+| `MOZ_MONTHLY_ROW_LIMIT`, `BRAVE_MONTHLY_QUERY_LIMIT`, `TOOL_CHECKS_PER_IP_PER_DAY` | Optional caps (defaults 2000, 900, 10) |
+
+Without a key, that part of the tool is switched off and the rest keeps working. Results are cached for 30 days per domain.
 
 ## Customize
 

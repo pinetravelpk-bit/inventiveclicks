@@ -3,6 +3,7 @@ import {business} from './business';
 import {services,projects,articles} from './content';
 import {platforms} from './platforms';
 import {serviceGroups} from './service-groups';
+import {tools} from './tools';
 
 const u=(p:string)=>business.url+p;
 const contactLines=()=>[business.email&&`- Email: ${business.email}`,business.telephone&&`- Phone: ${business.telephone}`,business.address.addressLocality&&`- Location: ${[business.address.streetAddress,business.address.addressLocality,business.address.addressRegion,business.address.addressCountry].filter(Boolean).join(', ')}`,business.areaServed.length&&`- Areas served: ${business.areaServed.join(', ')}`,`- Contact form: ${u('/contact')}`].filter(Boolean);
@@ -17,6 +18,7 @@ export function llmsIndex(){
     '## Key pages',`- [Home](${u('/')})`,`- [About](${u('/about')})`,`- [All services](${u('/services')})`,`- [Contact / start a project](${u('/contact')})`,`- [Careers](${u('/careers')})`,`- [Full details for AI assistants](${u('/llms-full.txt')})`,'',
     '## Services',...groups,...(other.length?['### Other',...other.map(s=>`- [${s.name}](${u('/services/'+s.slug)}): ${s.summary}`)]:[]),'',
     '## Platform marketing',...platforms.map(p=>`- [${p.name}](${u('/platforms/'+p.slug)}): ${p.summary}`),'',
+    '## Free SEO tools',...tools.map(t=>`- [${t.name}](${u('/tools/'+t.slug)}): ${t.summary}`),'',
     '## Work (illustrative concepts)',...projects.map(p=>`- [${p.name}](${u('/work/'+p.slug)}): ${p.summary}`),'',
     '## Articles',...articles.map(a=>`- [${a.title}](${u('/blog/'+a.slug)}): ${a.summary}`),'',
     '## Contact',...contactLines(),'',

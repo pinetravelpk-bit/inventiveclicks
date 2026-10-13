@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "next build",
-    "start": "node scripts/serve.mjs"
+    "start": "next start"
   },
   "dependencies": {
     "next": "^15.5.0",

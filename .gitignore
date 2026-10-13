@@ -6,3 +6,6 @@ out
 
 .next-dev
 !.env.example
+
+.data
+tsconfig.tsbuildinfo
