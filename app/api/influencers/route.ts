@@ -1,6 +1,8 @@
 // Influencer network applications and brand campaign enquiries from /influencers.
 import {appendRecord} from '../../../lib/submissions';
 import {platforms,niches,followerBands,budgetBands} from '../../../lib/influencers';
+import {bookingTypes,maria} from '../../../lib/talent/maria-zeb';
+const talentSlugs=[maria.slug];
 export const dynamic='force-dynamic';
 export const runtime='nodejs';
 
@@ -40,6 +42,13 @@ export async function POST(req:Request){
     if(rec.company.length<2)return json({error:'Please enter your company or brand name.'},400);
     if(rec.goal.length<10)return json({error:'Tell us a little about the campaign you have in mind.'},400);
     await appendRecord('brand-enquiries.jsonl',rec);return json({ok:true});
+  }
+  if(b.type==='booking'){
+    const rec={...base,type:'booking',talent:oneOf(b.talent,talentSlugs),company:str(b.company,150),bookingType:oneOf(b.bookingType,bookingTypes),eventDate:/^\d{4}-\d{2}-\d{2}$/.test(String(b.eventDate))?String(b.eventDate):'',city:str(b.city,120),details:str(b.details,1500)};
+    if(!rec.talent)return json({error:'Unknown talent.'},400);
+    if(!rec.bookingType)return json({error:'Choose what the booking is for.'},400);
+    if(rec.details.length<10)return json({error:'Tell us a little about the booking.'},400);
+    await appendRecord('bookings.jsonl',rec);return json({ok:true});
   }
   return json({error:'Unknown form.'},400);
 }

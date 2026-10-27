@@ -29,12 +29,13 @@ export default function Influencers(){return <>
   </PageHero>
 
   {featuredInfluencers.length>0&&<section className="container inner-section" id="creators">
-    <div className="section-top"><div><Tag>FEATURED CREATORS</Tag><h2>Influencers in our network.</h2></div><p>A selection of creators who have worked with us. Follower counts are as reported by each creator.</p></div>
+    <div className="section-top"><div><Tag>FEATURED CREATORS</Tag><h2>Influencers in our network.</h2></div><p>Creators and talent represented by the Inventive Clicks team.</p></div>
     <div className="influencer-grid">{featuredInfluencers.map(i=><article className="influencer-card" key={i.profileUrl}>
       {i.photo?<img src={i.photo} alt={i.name} width={96} height={96} loading="lazy"/>:<span className="influencer-initials" aria-hidden="true">{initials(i.name)}</span>}
-      <h3>{i.name}</h3><a href={i.profileUrl} target="_blank" rel="noopener nofollow">{i.handle} <ExternalLink size={12}/></a>
+      <h3>{i.page?<Link href={i.page}>{i.name}</Link>:i.name}</h3><a href={i.profileUrl} target="_blank" rel="noopener nofollow">{i.handle} <ExternalLink size={12}/></a>
       <p>{i.niche}{i.location?` · ${i.location}`:''}</p>
-      <div className="influencer-meta"><span>{i.platform}</span><strong>{i.followers}</strong></div>
+      <div className="influencer-meta"><span>{i.platform}</span>{i.followers&&<strong>{i.followers}</strong>}</div>
+      {i.page&&<Link className="card-link" href={i.page}>View profile <ArrowRight size={15}/></Link>}
     </article>)}</div>
   </section>}
 

@@ -8,9 +8,10 @@ export type Influencer={
   platform:Platform;
   profileUrl:string;      // public profile link
   niche:string;           // e.g. 'Fashion & lifestyle'
-  followers:string;       // as the creator reports it, e.g. '120K'
+  followers?:string;      // as the creator reports it, e.g. '120K'
   location?:string;       // e.g. 'Lahore, Pakistan'
   photo?:string;
+  page?:string;           // full profile page on this site, e.g. '/influencers/maria-zeb'
 };
 
 export const platforms=['Instagram','TikTok','YouTube','Facebook','X (Twitter)','LinkedIn','Snapchat','Pinterest','Twitch','Blog / Website','Other'] as const;
@@ -22,4 +23,6 @@ export const followerBands=['Under 10K (nano)','10K – 50K (micro)','50K – 10
 
 export const budgetBands=['Under PKR 100,000','PKR 100,000 – 500,000','PKR 500,000 – 1.5M','PKR 1.5M+','Under USD 1,000','USD 1,000 – 5,000','USD 5,000+','Not sure yet'];
 
-export const featuredInfluencers:Influencer[]=[];
+export const featuredInfluencers:Influencer[]=[
+  {name:'Maria Zeb',handle:'@mariazeb__',platform:'Instagram',profileUrl:'https://www.instagram.com/mariazeb__/',niche:'Singer • Model • Content Creator • Host',photo:'/talent/maria-zeb/thumbs/studio-31.webp',page:'/influencers/maria-zeb'},
+];
