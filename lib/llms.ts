@@ -15,7 +15,7 @@ export function llmsIndex(){
   return [
     `# ${business.name}`,'',`> ${business.description}`,'',
     `${business.name} plans and delivers digital marketing, search, paid media, social, e-commerce, web and creative work for businesses. Every engagement starts from the client's business goal and a written scope with deliverables and review stages.`,'',
-    '## Key pages',`- [Home](${u('/')})`,`- [About](${u('/about')})`,`- [All services](${u('/services')})`,`- [Contact / start a project](${u('/contact')})`,`- [Careers](${u('/careers')})`,`- [Full details for AI assistants](${u('/llms-full.txt')})`,'',
+    '## Key pages',`- [Home](${u('/')})`,`- [About](${u('/about')})`,`- [All services](${u('/services')})`,`- [Contact / start a project](${u('/contact')})`,`- [Careers](${u('/careers')})`,`- [Influencer network](${u('/influencers')}): creators can join the network and brands can hire influencers for campaigns`,`- [Full details for AI assistants](${u('/llms-full.txt')})`,'',
     '## Services',...groups,...(other.length?['### Other',...other.map(s=>`- [${s.name}](${u('/services/'+s.slug)}): ${s.summary}`)]:[]),'',
     '## Platform marketing',...platforms.map(p=>`- [${p.name}](${u('/platforms/'+p.slug)}): ${p.summary}`),'',
     '## Free SEO tools',...tools.map(t=>`- [${t.name}](${u('/tools/'+t.slug)}): ${t.summary}`),'',
