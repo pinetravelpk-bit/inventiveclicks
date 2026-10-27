@@ -42,7 +42,7 @@ export default function MariaZeb(){return <div className={`tz ${display.variable
   </section>
 
   <section id="about" className="tz-about tz-wrap">
-    <div className="tz-portrait"><span className="tz-brush big" aria-hidden="true"/><img src={maria.portrait} alt={`Portrait of ${maria.name}`} width={788} height={1400}/></div>
+    <div className="tz-portrait"><span className="tz-brush big" aria-hidden="true"/><img src={maria.portrait} alt={`Portrait of ${maria.name}`} width={1000} height={1500}/></div>
     <div className="tz-about-copy">
       <p className="tz-script">Hello!</p>
       <h2>I’m {maria.name}</h2>

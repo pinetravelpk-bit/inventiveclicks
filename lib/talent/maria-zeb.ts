@@ -15,7 +15,7 @@ export const maria={
   ],
   // Confirm before relying on: handle taken from Maria's own Instagram story tags.
   socials:[{label:'Instagram',url:'https://www.instagram.com/mariazeb__/'}],
-  portrait:`${base}/gallery/studio-31.webp`,
+  portrait:`${base}/portrait.webp`,
   hero:{desktop:`${base}/video/hero-desktop.mp4`,desktopPoster:`${base}/video/hero-desktop.jpg`,mobile:`${base}/video/hero-mobile.mp4`,mobilePoster:`${base}/video/hero-mobile.jpg`},
 };
 
