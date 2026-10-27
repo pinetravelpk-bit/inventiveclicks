@@ -34,9 +34,29 @@ export const stages=[
   {event:'Gravity Fest',detail:'Live on the Gravity stage',poster:`${base}/gallery/posters-46.webp`},
 ];
 
-export const galleryCats=[{id:'all',label:'All'},{id:'fashion',label:'Fashion'},{id:'stage',label:'Stage'},{id:'studio',label:'Studio'},{id:'outdoor',label:'Lifestyle'},{id:'hosting',label:'Hosting'}];
+export const galleryCats=[{id:'all',label:'All'},{id:'fashion',label:'Fashion'},{id:'bridal',label:'Bridal'},{id:'editorial',label:'Editorial'},{id:'stage',label:'Stage'},{id:'studio',label:'Studio'},{id:'outdoor',label:'Lifestyle'},{id:'hosting',label:'Hosting'}];
 export type Photo={file:string;cat:string;w:number;h:number};
 export const gallery:Photo[]=[
+  {file:'bridal-47',cat:'bridal',w:590,h:886},
+  {file:'bridal-48',cat:'bridal',w:590,h:886},
+  {file:'bridal-49',cat:'bridal',w:590,h:886},
+  {file:'bridal-50',cat:'bridal',w:590,h:886},
+  {file:'bridal-51',cat:'bridal',w:590,h:885},
+  {file:'editorial-52',cat:'editorial',w:854,h:1280},
+  {file:'editorial-53',cat:'editorial',w:854,h:1280},
+  {file:'editorial-54',cat:'editorial',w:854,h:1280},
+  {file:'editorial-55',cat:'editorial',w:854,h:1280},
+  {file:'editorial-56',cat:'editorial',w:854,h:1280},
+  {file:'editorial-57',cat:'editorial',w:1280,h:854},
+  {file:'editorial-58',cat:'editorial',w:854,h:1280},
+  {file:'fashion-59',cat:'fashion',w:960,h:1280},
+  {file:'fashion-60',cat:'fashion',w:960,h:1280},
+  {file:'fashion-61',cat:'fashion',w:960,h:1280},
+  {file:'fashion-62',cat:'fashion',w:360,h:480},
+  {file:'fashion-63',cat:'fashion',w:360,h:480},
+  {file:'fashion-64',cat:'fashion',w:360,h:480},
+  {file:'fashion-65',cat:'fashion',w:360,h:480},
+  {file:'fashion-66',cat:'fashion',w:360,h:480},
   {file:'fashion-01',cat:'fashion',w:647,h:1400},
   {file:'fashion-02',cat:'fashion',w:1050,h:1400},
   {file:'fashion-03',cat:'fashion',w:1050,h:1400},
