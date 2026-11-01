@@ -51,7 +51,7 @@
 
 /* Lightbox */
 .pf-lightbox{position:fixed;inset:0;z-index:100;background:#020610f2;display:grid;place-items:center;padding:60px 80px}
-.pf-lightbox figure{margin:0;width:min(1200px,100%)}
+.pf-lightbox figure{margin:0;width:min(1200px,100%,calc((100dvh - 170px) * 1.6))}
 .pf-lightbox .pf-browser img{aspect-ratio:auto}
 .pf-lightbox figcaption{margin-top:14px;text-align:center;color:#c3cbdb;font-size:14px}
 .pf-lightbox button{position:absolute;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid #ffffff44;background:#0b1626;color:#fff;cursor:pointer}
