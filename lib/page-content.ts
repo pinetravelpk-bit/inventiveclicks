@@ -78,3 +78,31 @@ export const contactMoreFaq:[string,string][]=[
   ['How do I send files or give access?','We will send a short checklist after the discovery call. Access to accounts is granted to our team in your name, so you keep control and can revoke it at any time.'],
   ['What if we decide not to go ahead?','Then you keep the audit notes and recommendations with our thanks. There is no charge for the discovery conversation or the proposal.'],
 ];
+
+export const aboutCommitments:[string,string][]=[
+  ['Honest scoping','If a piece of work will not move your goal, we say so, even when it would be easy to sell.'],
+  ['No lock-in','Accounts, websites and files are yours. Our work should earn the next month, not a contract clause.'],
+  ['Clear communication','One named lead, agreed response times and no jargon in reports or calls.'],
+  ['Evidence-led decisions','Recommendations come with the data behind them, so you can question them.'],
+  ['Respect for your time','Reviews are prepared, calls have agendas and approvals are batched sensibly.'],
+  ['Long-term thinking','We build foundations that compound: rankings, content, brand recognition and clean data.'],
+];
+export const aboutGlobal=[
+  'Working from Pakistan gives our clients access to experienced, English-speaking marketers, designers and developers at a sustainable cost, with working hours that overlap comfortably with the Gulf and Europe and can be arranged to cover the United States. It also means we understand the Pakistani market from the inside: how people search, what they trust and where they buy.',
+  'Serving clients in the United States keeps our standards international. US projects demand polished design, fast performance, accessibility, regulatory awareness in healthcare and finance, and reporting that stands up to scrutiny. Those habits carry over into every project we deliver, whichever market it is for.',
+];
+export const groupSignals:Record<string,string>={
+  'strategy-growth':'Choose this group when enquiries or sales are the problem: traffic is low, leads are expensive, or you cannot tell which channel is working.',
+  'brand-content':'Choose this group when recognition and trust are the problem: customers do not remember you, your materials look inconsistent, or your content does not persuade.',
+  'web-technology':'Choose this group when your platform is the problem: the website is slow or dated, editing is hard, or you need a product, app or integration built.',
+  'commerce-operations':'Choose this group when selling or capacity is the problem: online margins are thin, marketplaces underperform, or your team cannot keep up.',
+  'social-motion':'Choose this group when attention is the problem: your audience is on social platforms and your presence, video or creator activity is not keeping pace.',
+};
+export const contactCallPrep:string[]=['Have your website and social profile links to hand','Know roughly how many enquiries or sales you get now, and from where','Think about which customers you want more of, and which you do not','Note any deadlines: launches, seasons, events or budget cycles','Decide who else should join the call: a partner, marketer or developer','Prepare any questions about process, pricing or ownership'];
+export const contactWeAsk:string[]=['What does the business sell and to whom?','How do customers find you today?','What would success look like in six months?','What has been tried before, and what happened?','Who will approve work and how quickly?','What budget range are you comfortable with?','Are there compliance or brand rules we must follow?','Which markets and languages matter?'];
+export const contactOnboarding:string[]=['Signed proposal and agreed start date','Access to analytics, ad accounts, website and social profiles in your name','Brand assets, content and any existing reports shared','Points of contact and approval process confirmed','Communication channel and reporting rhythm agreed','Kick-off call scheduled and first-month plan issued'];
+export const contactFinalFaq:[string,string][]=[
+  ['Can you start quickly?','Usually within one to two weeks of an approved proposal, sooner for audits and campaign fixes. Websites and brand projects are scheduled around design and content availability.'],
+  ['Do you offer ongoing support after a project?','Yes. Maintenance plans, monthly retainers and ad-hoc support are available, and most project clients continue with at least one ongoing service.'],
+  ['How do you handle urgent issues?','Ongoing clients have a direct line to their lead for urgent website, campaign or account problems, with response expectations set in the proposal.'],
+];
