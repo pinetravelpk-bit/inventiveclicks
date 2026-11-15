@@ -1,0 +1,34 @@
+/* Ambient depth: keeps the black base but lifts flat sections with soft colour fields and bands. */
+html{overflow-x:clip}
+body::before{content:'';position:fixed;inset:-12%;z-index:-1;pointer-events:none;background:
+ radial-gradient(ellipse 36% 30% at 84% 6%,#1b3f8a3a,transparent),
+ radial-gradient(ellipse 30% 26% at 6% 26%,#5a237a30,transparent),
+ radial-gradient(ellipse 34% 30% at 72% 68%,#2a7bb824,transparent),
+ radial-gradient(ellipse 28% 24% at 18% 90%,#7a2a6a26,transparent);
+ animation:ic-ambient 28s ease-in-out infinite alternate}
+@keyframes ic-ambient{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-2.5%,1.8%,0) scale(1.07)}}
+
+/* Full-bleed bands behind alternate sections */
+.hm-why,.hm-ai,.hm-local,.hm-insights,.testimonial,.lf-why,.lf-measure,.lf-local,.faq-section,.hm-promos,.services-guide,.lf-band-wrap{position:relative;isolation:isolate}
+.hm-why::before,.hm-ai::before,.hm-local::before,.hm-insights::before,.testimonial::before,.lf-why::before,.lf-measure::before,.lf-local::before,.faq-section::before,.hm-promos::before{content:'';position:absolute;inset:0 calc(50% - 50vw);z-index:-1;pointer-events:none;background:
+ linear-gradient(180deg,transparent,#0a1426 16%,#0b1629 50%,#0a1426 84%,transparent),
+ radial-gradient(ellipse 40% 60% at 0% 50%,#4a2a8a2e,transparent),
+ radial-gradient(ellipse 40% 60% at 100% 50%,#1f5fa82a,transparent)}
+.hm-ai::before,.lf-measure::before,.faq-section::before{background:
+ linear-gradient(180deg,transparent,#120f26 16%,#140f2c 50%,#120f26 84%,transparent),
+ radial-gradient(ellipse 45% 70% at 100% 20%,#7a2a9a2a,transparent),
+ radial-gradient(ellipse 40% 60% at 0% 80%,#1f5fa826,transparent)}
+.hm-why::after,.lf-why::after,.hm-local::after{content:'';position:absolute;inset:0 calc(50% - 50vw);z-index:-1;pointer-events:none;background-image:radial-gradient(#ffffff0f 1px,transparent 1.2px);background-size:26px 26px;-webkit-mask-image:radial-gradient(ellipse 60% 70% at 50% 50%,#000,transparent 75%);mask-image:radial-gradient(ellipse 60% 70% at 50% 50%,#000,transparent 75%)}
+/* Hairlines at band edges */
+.hm-why,.hm-ai,.hm-local,.hm-insights,.lf-why,.lf-measure,.lf-local{border-top:1px solid transparent;border-bottom:1px solid transparent;border-image:linear-gradient(90deg,transparent,#7b86ff40 30%,#c66bff50 50%,#7b86ff40 70%,transparent) 1}
+/* About block: give the flat dark panel a gradient and glow */
+.about{background:linear-gradient(180deg,#020a0e,#08132a 45%,#0b1024 100%)!important;position:relative}
+.about::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 70% at 15% 30%,#6a2fb830,transparent),radial-gradient(ellipse 40% 60% at 90% 90%,#1e78c62a,transparent)}
+/* Footer and CTA depth */
+footer{position:relative;background:linear-gradient(180deg,transparent,#060c1a 30%,#040810);border-top:1px solid #15223a}
+footer::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 60% at 80% 100%,#5a2a8a24,transparent),radial-gradient(ellipse 40% 60% at 10% 0%,#1f5fa820,transparent)}
+.hero{position:relative}
+.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:160px;pointer-events:none;background:linear-gradient(180deg,transparent,#06102033 60%,#0a1426)}
+/* Card lift so cards still separate from the lighter bands */
+.hm-why article,.hm-insights article,.lf-measure article,.lf-step{box-shadow:0 18px 50px #00000055,inset 0 1px 0 #ffffff12}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}

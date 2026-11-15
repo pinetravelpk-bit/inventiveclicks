@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './effects.css';
 import './longform.css';
+import './cube.css';
+import './ambient.css';
 import {FloatingContact} from '../components/ContactActions';
 import {JsonLd,siteUrl} from '../components/StructuredData';
 import {business,organizationSchema,organizationId} from '../lib/business';

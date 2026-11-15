@@ -3,7 +3,7 @@
 
 /* 2x artwork for retina and 4K displays (sharpened upscales in public/images) */
 .hero-art.hd-hero{background-image:image-set(url('/images/hero-hd.webp') 1x,url('/images/hero-hd@2x.webp') 2x)}
-.hero-art.hd-hero.cube,.hd-icon{background-image:image-set(url('/images/icons-hd.webp') 1x,url('/images/icons-hd@2x.webp') 2x)}
+.hd-icon{background-image:image-set(url('/images/icons-hd.webp') 1x,url('/images/icons-hd@2x.webp') 2x)}
 .hd-office{background-image:image-set(url('/images/office-hd.webp') 1x,url('/images/office-hd@2x.webp') 2x)}
 .case-art{background-image:image-set(url('/images/work-hd.webp') 1x,url('/images/work-hd@2x.webp') 2x)}
 .hero-art.hd-hero,.hd-icon,.hd-office,.case-art{image-rendering:auto}
