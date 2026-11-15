@@ -29,7 +29,7 @@
 
 /* Hero slide: cube replaces the sprite cell. */
 .hero-art.hd-hero.cube{background-image:none!important;-webkit-mask-image:none;mask-image:none;display:grid;place-items:center;animation:none;inset:0;width:100%;height:100%;aspect-ratio:auto;max-height:none}
-.gc-hero{width:min(92%,500px);transform:translateZ(18px)}
+.gc-hero{width:min(84%,440px);transform:translateZ(18px) translateY(8%)}
 /* Inner page hero */
 .inner-art .gc-inner{width:min(100%,400px);grid-area:1/1}
 .inner-art .inner-orbit,.inner-art .art-caption{grid-area:1/1}
