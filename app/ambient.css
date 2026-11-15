@@ -11,13 +11,13 @@ body::before{content:'';position:fixed;inset:-12%;z-index:-1;pointer-events:none
 /* Full-bleed bands behind alternate sections */
 .hm-why,.hm-ai,.hm-local,.hm-insights,.testimonial,.lf-why,.lf-measure,.lf-local,.faq-section,.hm-promos,.services-guide,.lf-band-wrap{position:relative;isolation:isolate}
 .hm-why::before,.hm-ai::before,.hm-local::before,.hm-insights::before,.testimonial::before,.lf-why::before,.lf-measure::before,.lf-local::before,.faq-section::before,.hm-promos::before{content:'';position:absolute;inset:0 calc(50% - 50vw);z-index:-1;pointer-events:none;background:
- linear-gradient(180deg,transparent,#0a1426 16%,#0b1629 50%,#0a1426 84%,transparent),
- radial-gradient(ellipse 40% 60% at 0% 50%,#4a2a8a2e,transparent),
- radial-gradient(ellipse 40% 60% at 100% 50%,#1f5fa82a,transparent)}
+ linear-gradient(180deg,transparent,#0c1a33 16%,#0e1d3a 50%,#0c1a33 84%,transparent),
+ radial-gradient(ellipse 40% 60% at 0% 50%,#4a2a8a48,transparent),
+ radial-gradient(ellipse 40% 60% at 100% 50%,#1f5fa844,transparent)}
 .hm-ai::before,.lf-measure::before,.faq-section::before{background:
- linear-gradient(180deg,transparent,#120f26 16%,#140f2c 50%,#120f26 84%,transparent),
- radial-gradient(ellipse 45% 70% at 100% 20%,#7a2a9a2a,transparent),
- radial-gradient(ellipse 40% 60% at 0% 80%,#1f5fa826,transparent)}
+ linear-gradient(180deg,transparent,#171235 16%,#1a133d 50%,#171235 84%,transparent),
+ radial-gradient(ellipse 45% 70% at 100% 20%,#7a2a9a44,transparent),
+ radial-gradient(ellipse 40% 60% at 0% 80%,#1f5fa840,transparent)}
 .hm-why::after,.lf-why::after,.hm-local::after{content:'';position:absolute;inset:0 calc(50% - 50vw);z-index:-1;pointer-events:none;background-image:radial-gradient(#ffffff0f 1px,transparent 1.2px);background-size:26px 26px;-webkit-mask-image:radial-gradient(ellipse 60% 70% at 50% 50%,#000,transparent 75%);mask-image:radial-gradient(ellipse 60% 70% at 50% 50%,#000,transparent 75%)}
 /* Hairlines at band edges */
 .hm-why,.hm-ai,.hm-local,.hm-insights,.lf-why,.lf-measure,.lf-local{border-top:1px solid transparent;border-bottom:1px solid transparent;border-image:linear-gradient(90deg,transparent,#7b86ff40 30%,#c66bff50 50%,#7b86ff40 70%,transparent) 1}
