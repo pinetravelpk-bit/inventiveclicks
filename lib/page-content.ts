@@ -106,3 +106,14 @@ export const contactFinalFaq:[string,string][]=[
   ['Do you offer ongoing support after a project?','Yes. Maintenance plans, monthly retainers and ad-hoc support are available, and most project clients continue with at least one ongoing service.'],
   ['How do you handle urgent issues?','Ongoing clients have a direct line to their lead for urgent website, campaign or account problems, with response expectations set in the proposal.'],
 ];
+
+export const aboutNotDo=[
+  'We do not sell packages that ignore your situation, promise rankings or results nobody can guarantee, or recommend a new website when a landing page and better tracking would do. We do not buy followers, links or reviews. We do not keep your accounts hostage, and we do not hide media costs inside our fees.',
+  'What we do instead is slower to sell and easier to live with: an honest audit, a scope written in plain language, work delivered in stages you can see, and reporting that tells you what happened and what to do next. Clients who want that tend to stay with us for years.',
+];
+export const servicesIntro='Thirty services can look like a long menu, so it helps to know how they fit together. Each service below has its own page describing the scope, deliverables, process, pricing factors and the questions clients ask most. Services are grouped into five families, and most engagements combine two or three from across them: a website with SEO and content, a store with marketplace management and ads, or a brand identity with social media and video. Use the starting points to find your situation, browse the groups, or simply tell us the problem and let us recommend the smallest scope that will move it.';
+export const contactResponse=[
+  ['Response times and working hours','We reply to new enquiries within one working day, Monday to Saturday, Pakistan Standard Time, and we keep US-friendly hours for calls with American clients. Ongoing clients have agreed response times for routine questions and a direct line for anything urgent, such as a website outage or a campaign problem.'],
+  ['Who you will speak to','Your first conversation is with a senior member of the team who will scope the work, not a sales representative reading from a script. The same person stays as your lead through the proposal and into delivery, and introduces the specialists who will do the work by name.'],
+  ['Referrals and partnerships','Agencies, freelancers and consultants who need design, development or marketing capacity for their own clients are welcome to get in touch. We work on a white-label or partnership basis where it suits both sides, with clear boundaries on client ownership and communication.'],
+];

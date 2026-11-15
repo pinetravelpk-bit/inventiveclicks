@@ -98,6 +98,8 @@ export const coreB:Record<string,Longform>={
   'Treating branding as a one-time cost rather than a system that needs maintenance.',
  ],
  faq:[
+  ['Can you design in both English and Urdu?','Yes. We design identities and campaign materials that work in English and Urdu typography, and we check how logos, headlines and layouts behave in both scripts before anything goes to print or screen.'],
+  ['Do you provide print-ready files?','Yes. Final artwork is supplied in print-ready formats with correct colour profiles, bleed and resolution, alongside web and social versions, so printers and developers both get what they need.'],
   ['What is included in a brand identity project?','Typically discovery, two to three concept directions, refinement of the chosen direction, a logo suite, colour and typography systems, a brand guidelines document and a set of core applications such as stationery and social templates. The exact list is agreed in the proposal.'],
   ['How long does branding take?','A full identity project usually takes four to eight weeks depending on the number of applications and review rounds. A logo refresh or campaign creative is faster.'],
   ['Do we own the designs?','Yes. On completion you receive all final files in editable and print-ready formats, and full ownership of the identity. Fonts and stock imagery are licensed in your name where required.'],
@@ -151,6 +153,8 @@ export const coreB:Record<string,Longform>={
   'Ignoring disclosure rules, which risks platform penalties and audience trust.',
  ],
  faq:[
+  ['Can we work with creators from your influencer network?','Yes. Creators who join our network have shared their platforms, audiences and niches, which gives campaigns a vetted starting point. We still check fit and engagement for every brief.'],
+  ['What happens if a creator does not deliver?','Deliverables and deadlines are in the contract. If a creator misses them, payment is withheld for the missing work and we replace them from the shortlist, so the campaign stays on schedule.'],
   ['How do you find the right influencers for our brand?','We start from your audience profile and objective, then research creators whose followers match it, checking engagement quality, content style and brand safety. We also draw on our own influencer network, where creators have applied to work with brands.'],
   ['What does influencer marketing cost in Pakistan versus the US?','Creator fees in Pakistan are generally far lower, especially for nano and micro creators, while US fees are higher and vary widely by niche. In both markets we agree fees per creator in writing before any content is produced.'],
   ['Can we reuse the influencer content in our own ads?','Only with usage rights agreed in the contract. We negotiate rights up front so the best content can be used on your website, social channels and paid campaigns.'],
@@ -257,6 +261,8 @@ export const coreB:Record<string,Longform>={
   'Treating a remote team member as disposable, which guarantees high turnover.',
  ],
  faq:[
+  ['Can the remote professional work in our time zone?','Yes, within reason. Full US daytime coverage is possible with evening shifts in Pakistan, and partial overlap is straightforward. Hours are agreed before placement and written into the role.'],
+  ['Can we hire the person permanently later?','Yes. If you want to bring a placed professional in-house after a period with us, we agree a transition under terms set out in the contract rather than standing in the way.'],
   ['What roles can you staff remotely?','Digital marketing specialists, PPC and SEO executives, social media managers, graphic and UI/UX designers, web and app developers, content writers, video editors, customer support and virtual assistants, bookkeeping and operations roles, among others.'],
   ['How quickly can someone start?','Typically within two to four weeks from an agreed role description, depending on seniority and availability. Common roles can often be filled faster from our existing talent pool.'],
   ['Do we manage the person or do you?','Either model works. Some clients manage their remote team member directly day to day; others prefer a fully managed arrangement where we oversee quality, scheduling and communication. The proposal sets out responsibilities clearly.'],
