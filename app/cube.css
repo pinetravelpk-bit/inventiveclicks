@@ -1,19 +1,19 @@
 /* Glass cube: CSS 3D, crisp at any size. Sized with container-query units from .gc. */
 @property --gc-a{syntax:'<angle>';inherits:false;initial-value:0deg}
 .gc{position:relative;width:100%;aspect-ratio:1;container-type:inline-size;display:grid;place-items:center;pointer-events:none}
-.gc-cube{position:relative;width:60cqw;height:60cqw;transform-style:preserve-3d;transform:rotateX(-16deg) rotateY(-28deg) rotateZ(-5deg);animation:gc-float 7s ease-in-out infinite,gc-strike 6.5s linear infinite;filter:drop-shadow(0 0 3cqw #5f7dff55)}
-.gc{perspective:1000px}
+.gc-cube{position:relative;width:66cqw;height:66cqw;transform-style:preserve-3d;transform:rotateX(-16deg) rotateY(-28deg) rotateZ(-5deg);animation:gc-float 7s ease-in-out infinite}
+.gc{perspective:1000px;animation:gc-strike 6.5s linear infinite;filter:drop-shadow(0 0 14px #5f7dff55)}
 .gc-face{position:absolute;inset:0;border-radius:2.2cqw;background:linear-gradient(135deg,#7d8cff26,#b24dff1f 48%,#35b4ff26);box-shadow:inset 0 0 0 .35cqw #c9d6ff2e,inset 0 0 10cqw #6f7fff22;backface-visibility:visible;overflow:hidden}
 .gc-face::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:.75cqw;background:conic-gradient(from var(--gc-a),#4aa8ff 0 58%,#ffffff 62%,#ff6ad5 66%,#b64dff 80%,#4aa8ff);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:gc-current 2.4s linear infinite;filter:drop-shadow(0 0 1.2cqw #8fc3ff)}
 .gc-face>i{position:absolute;inset:0;background:linear-gradient(115deg,transparent 32%,#ffffff3a 47%,#ffffff12 52%,transparent 64%);background-size:260% 100%;animation:gc-sheen 4.6s ease-in-out infinite}
-.gc-front{transform:translateZ(30cqw);background:linear-gradient(135deg,#8ea0ff30,#c45cff2a 45%,#3ec1ff30)}
-.gc-back{transform:rotateY(180deg) translateZ(30cqw);opacity:.55}
-.gc-right{transform:rotateY(90deg) translateZ(30cqw);background:linear-gradient(160deg,#ff6ad533,#7a4dff22 55%,#2fa8ff2a)}
+.gc-front{transform:translateZ(33cqw);background:linear-gradient(135deg,#8ea0ff30,#c45cff2a 45%,#3ec1ff30)}
+.gc-back{transform:rotateY(180deg) translateZ(33cqw);opacity:.55}
+.gc-right{transform:rotateY(90deg) translateZ(33cqw);background:linear-gradient(160deg,#ff6ad533,#7a4dff22 55%,#2fa8ff2a)}
 .gc-right::before{animation-delay:-.8s}
-.gc-left{transform:rotateY(-90deg) translateZ(30cqw);opacity:.5}
-.gc-top{transform:rotateX(90deg) translateZ(30cqw);background:linear-gradient(135deg,#d6e4ff3d,#8ea0ff22 50%,#ff8ae633)}
+.gc-left{transform:rotateY(-90deg) translateZ(33cqw);opacity:.5}
+.gc-top{transform:rotateX(90deg) translateZ(33cqw);background:linear-gradient(135deg,#d6e4ff3d,#8ea0ff22 50%,#ff8ae633)}
 .gc-top::before{animation-delay:-1.6s}
-.gc-bottom{transform:rotateX(-90deg) translateZ(30cqw);opacity:.45}
+.gc-bottom{transform:rotateX(-90deg) translateZ(33cqw);opacity:.45}
 .gc-front>span{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:700 10.5cqw/1.02 'Inter','DM Sans',Arial,sans-serif;letter-spacing:-.03em;color:#f6f8ff;text-shadow:0 0 1.4cqw #ffffff90,0 0 5cqw #8aa6ff80,0 .4cqw 1cqw #0008;animation:gc-text 6.5s linear infinite}
 .gc-glow{position:absolute;inset:16%;border-radius:50%;background:radial-gradient(circle,#7a4dff70,#2f9dff38 45%,transparent 70%);filter:blur(10cqw);animation:gc-pulse 5s ease-in-out infinite}
 .gc-floor{position:absolute;left:14%;right:14%;bottom:12%;height:9cqw;border-radius:50%;background:radial-gradient(ellipse,#6b86ff4d,#c04dff22 50%,transparent 72%);filter:blur(4cqw)}
@@ -24,7 +24,7 @@
 @keyframes gc-sheen{0%,35%{background-position:120% 0}70%,100%{background-position:-60% 0}}
 @keyframes gc-pulse{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
 @keyframes gc-spark{0%,70%,100%{opacity:0;transform:scale(.4)}74%{opacity:1;transform:scale(1.3)}78%{opacity:.2}82%{opacity:1;transform:scale(1)}90%{opacity:0}}
-@keyframes gc-strike{0%,61%,66%,100%{filter:drop-shadow(0 0 3cqw #5f7dff55) brightness(1)}62%{filter:drop-shadow(0 0 9cqw #9fc4ff) brightness(1.55)}63.5%{filter:drop-shadow(0 0 4cqw #6f8dff88) brightness(1.1)}64.5%{filter:drop-shadow(0 0 10cqw #c8dcff) brightness(1.7)}}
+@keyframes gc-strike{0%,61%,66%,100%{filter:drop-shadow(0 0 14px #5f7dff55) brightness(1)}62%{filter:drop-shadow(0 0 40px #9fc4ff) brightness(1.55)}63.5%{filter:drop-shadow(0 0 18px #6f8dff88) brightness(1.1)}64.5%{filter:drop-shadow(0 0 46px #c8dcff) brightness(1.7)}}
 @keyframes gc-text{0%,61%,66%,100%{text-shadow:0 0 1.4cqw #ffffff90,0 0 5cqw #8aa6ff80,0 .4cqw 1cqw #0008}62.5%,64.5%{text-shadow:0 0 2cqw #fff,0 0 9cqw #bcd0ff,0 .4cqw 1cqw #0008}}
 
 /* Hero slide: cube replaces the sprite cell. */
