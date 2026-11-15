@@ -1,7 +1,8 @@
 'use client';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-/** Progressive enhancement: the page remains fully visible without JavaScript. */
+/** Progressive enhancement: scroll reveals, pointer tilt and count-up numbers.
+ *  The page remains fully visible and readable without JavaScript or when motion is reduced. */
 export default function Motion() {
   const pathname = usePathname();
   useEffect(() => {
@@ -12,7 +13,9 @@ export default function Motion() {
       teardown();
       if (reduced.matches) return;
       const cleanups: Array<() => void> = [];
-      const sections = document.querySelectorAll<HTMLElement>('.section-top,.service-card,.about-copy,.office,.work-card,.step,.testimonial-inner,.cta,.footer-grid,.detail-panel,.delivery-card,.article-card,.project-card');
+
+      // Scroll reveal
+      const sections = document.querySelectorAll<HTMLElement>('.reveal,.section-top,.service-card,.about-copy,.office,.work-card,.step,.testimonial-inner,.cta,.footer-grid,.detail-panel,.delivery-card,.article-card,.project-card');
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -20,7 +23,7 @@ export default function Motion() {
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
+      }, { threshold: 0.06, rootMargin: '0px 0px -10px 0px' });
       sections.forEach((el, index) => {
         if (el.getBoundingClientRect().top > window.innerHeight) {
           el.classList.add('reveal-ready');
@@ -28,9 +31,31 @@ export default function Motion() {
           observer.observe(el);
         }
       });
-      cleanups.push(() => { observer.disconnect(); sections.forEach(el => el.classList.remove('reveal-ready', 'revealed')); });
+      // Safety net: never leave content hidden if an observer callback is missed.
+      const safety = window.setTimeout(() => document.querySelectorAll('.reveal-ready:not(.revealed)').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('revealed');
+      }), 2500);
+      cleanups.push(() => { window.clearTimeout(safety); observer.disconnect(); sections.forEach(el => el.classList.remove('reveal-ready', 'revealed')); });
+
+      // Count-up numbers: <strong data-count="30" data-suffix="+">0</strong>
+      const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+      if (counters.length) {
+        const seen = new WeakSet<Element>();
+        const co = new IntersectionObserver(entries => entries.forEach(e => {
+          if (!e.isIntersecting || seen.has(e.target)) return;
+          seen.add(e.target);
+          const el = e.target as HTMLElement;
+          const target = Number(el.dataset.count || 0), suffix = el.dataset.suffix || '', start = performance.now(), dur = 1400;
+          const step = (t: number) => { const p = Math.min(1, (t - start) / dur), v = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = v + suffix; if (p < 1) requestAnimationFrame(step); };
+          requestAnimationFrame(step);
+        }), { threshold: 0.5 });
+        counters.forEach(c => co.observe(c));
+        cleanups.push(() => co.disconnect());
+      }
+
+      // Pointer tilt
       if (finePointer.matches) {
-        document.querySelectorAll<HTMLElement>('.service-card,.work-card,.hero-stage').forEach(el => {
+        document.querySelectorAll<HTMLElement>('.service-card,.work-card,.hero-stage,.tilt').forEach(el => {
           let frame = 0;
           const move = (event: PointerEvent) => {
             if (event.pointerType === 'touch') return;

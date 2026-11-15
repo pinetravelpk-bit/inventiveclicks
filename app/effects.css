@@ -1,0 +1,63 @@
+/* Site-wide motion and high-DPI artwork layer. Every animation is disabled under
+   prefers-reduced-motion, and nothing here is needed for the page to be readable. */
+
+/* 2x artwork for retina and 4K displays (sharpened upscales in public/images) */
+.hero-art.hd-hero{background-image:image-set(url('/images/hero-hd.webp') 1x,url('/images/hero-hd@2x.webp') 2x)}
+.hero-art.hd-hero.cube,.hd-icon{background-image:image-set(url('/images/icons-hd.webp') 1x,url('/images/icons-hd@2x.webp') 2x)}
+.hd-office{background-image:image-set(url('/images/office-hd.webp') 1x,url('/images/office-hd@2x.webp') 2x)}
+.case-art{background-image:image-set(url('/images/work-hd.webp') 1x,url('/images/work-hd@2x.webp') 2x)}
+.hero-art.hd-hero,.hd-icon,.hd-office,.case-art{image-rendering:auto}
+
+/* Keyframes */
+@keyframes ic-aurora{0%{transform:translate3d(-6%,-4%,0) scale(1) rotate(0)}50%{transform:translate3d(6%,5%,0) scale(1.12) rotate(8deg)}100%{transform:translate3d(-6%,-4%,0) scale(1) rotate(0)}}
+@keyframes ic-shimmer{to{background-position:200% center}}
+@keyframes ic-marquee{to{transform:translateX(-50%)}}
+@keyframes ic-float{50%{transform:translateY(-10px)}}
+@keyframes ic-spin{to{transform:rotate(1turn)}}
+@keyframes ic-pulse{0%{box-shadow:0 0 0 0 #e83e9166}70%{box-shadow:0 0 0 18px #e83e9100}100%{box-shadow:0 0 0 0 #e83e9100}}
+@keyframes ic-sweep{to{transform:translateX(220%) skewX(-20deg)}}
+@keyframes ic-draw{to{stroke-dashoffset:0}}
+@keyframes ic-rise{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+
+/* Aurora backdrop: slow drifting colour fields behind hero and CTA sections */
+.ic-aurora{position:absolute;inset:-20%;z-index:-1;pointer-events:none;filter:blur(70px);opacity:.55}
+.ic-aurora::before,.ic-aurora::after{content:"";position:absolute;width:55%;height:55%;border-radius:50%;animation:ic-aurora 22s ease-in-out infinite}
+.ic-aurora::before{left:5%;top:10%;background:radial-gradient(circle,#4b9eff88,transparent 65%)}
+.ic-aurora::after{right:0;bottom:0;background:radial-gradient(circle,#ff57bc77,transparent 65%);animation-delay:-11s;animation-duration:26s}
+
+/* Gradient text with a slow light sweep */
+.ic-gradient{background:linear-gradient(90deg,#7cc8ff,#b89cff 35%,#ff6fb5 60%,#7cc8ff);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:ic-shimmer 9s linear infinite}
+
+/* Buttons: light sweep on hover and a soft pulse ring on the primary CTA */
+.primary,.tz-btn{position:relative;overflow:hidden}
+.primary::after,.tz-btn::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-40%;width:35%;background:linear-gradient(90deg,transparent,#ffffff55,transparent);transform:translateX(-120%) skewX(-20deg);pointer-events:none}
+.primary:hover::after,.tz-btn:hover::after{animation:ic-sweep .9s ease}
+.ic-pulse{animation:ic-pulse 2.6s ease-out infinite}
+
+/* Rotating conic gradient border for highlighted cards */
+.ic-glow{position:relative;isolation:isolate;border-radius:20px}
+.ic-glow::before{content:"";position:absolute;inset:-1px;z-index:-1;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ic-angle,0deg),#2a3a55 0 60%,#7cc8ff 72%,#ff6fb5 84%,#2a3a55 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:ic-angle 8s linear infinite}
+@property --ic-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes ic-angle{to{--ic-angle:360deg}}
+
+/* Infinite marquee (content is duplicated once in the markup) */
+.ic-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.ic-marquee>div{display:flex;gap:56px;width:max-content;animation:ic-marquee 38s linear infinite}
+.ic-marquee:hover>div{animation-play-state:paused}
+
+/* Generic scroll reveal (Motion.tsx adds .reveal-ready / .revealed) */
+.reveal.reveal-ready{opacity:0;translate:0 26px;transition:opacity .8s var(--reveal-delay,0ms),translate .8s var(--reveal-delay,0ms) cubic-bezier(.22,1,.36,1)}
+.reveal.reveal-ready.revealed{opacity:1;translate:0 0}
+
+/* Floating decorative pieces */
+.ic-float{animation:ic-float 7s ease-in-out infinite}
+.ic-float.d1{animation-delay:-2s}.ic-float.d2{animation-delay:-4s}
+
+/* Animated divider line */
+.ic-line{height:1px;background:linear-gradient(90deg,transparent,#7cc8ff66,#ff6fb566,transparent);background-size:200% 100%;animation:ic-shimmer 6s linear infinite}
+
+@media (prefers-reduced-motion:reduce){
+  .ic-aurora::before,.ic-aurora::after,.ic-gradient,.ic-pulse,.ic-glow::before,.ic-marquee>div,.ic-float,.ic-line{animation:none!important}
+  .primary::after,.tz-btn::after{display:none}
+  .reveal.reveal-ready{opacity:1;translate:none;transition:none}
+}
