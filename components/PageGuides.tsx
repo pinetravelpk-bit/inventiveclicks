@@ -3,7 +3,7 @@ import {ArrowRight,Check,Clock,FileText,MessageCircle,ShieldCheck,Sparkles,Targe
 import {Tag,FAQ,Checklist} from './Inner';
 import {serviceGroups} from '../lib/service-groups';
 import {services} from '../lib/content';
-import {aboutEngagement,aboutCapabilities,aboutIndustries,aboutMoreFaq,groupDescriptions,first30,servicesMoreFaq,contactProposal,contactMarkets,contactRouting,contactMoreFaq,aboutCommitments,aboutGlobal,groupSignals,contactCallPrep,contactWeAsk,contactOnboarding,contactFinalFaq,aboutNotDo,servicesIntro,contactResponse} from '../lib/page-content';
+import {aboutEngagement,aboutCapabilities,aboutIndustries,aboutMoreFaq,groupDescriptions,first30,servicesMoreFaq,contactProposal,contactMarkets,contactRouting,contactMoreFaq,aboutCommitments,aboutGlobal,groupSignals,contactCallPrep,contactWeAsk,contactOnboarding,contactFinalFaq,aboutNotDo,servicesIntro,contactResponse,aboutLastFaq,servicesLastFaq,contactLastFaq} from '../lib/page-content';
 
 /* ---------- About: the longer story ---------- */
 const aboutStory=[
@@ -39,7 +39,7 @@ export function AboutStory(){return <div className="lf">
   <section className="container inner-section"><div className="section-top"><div><Tag>OUR COMMITMENTS</Tag><h2>What we promise every client.</h2></div></div><div className="lf-approach">{aboutCommitments.map(([t,d],i)=><article className="lf-step reveal" key={t}><span>0{i+1}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
   <section className="container inner-section"><div className="section-top"><div><Tag>PAKISTAN-BASED, GLOBALLY CAPABLE</Tag><h2>Why does our location help?</h2></div></div><div className="lf-prose lf-two">{aboutGlobal.map(x=><p key={x.slice(0,20)}>{x}</p>)}</div></section>
   <section className="container inner-section"><div className="section-top"><div><Tag>WHAT WE DO NOT DO</Tag><h2>A few things you will not get from us.</h2></div></div><div className="lf-prose lf-two">{aboutNotDo.map(x=><p key={x.slice(0,20)}>{x}</p>)}</div></section>
-  <section className="container inner-section faq-section"><div><Tag>QUESTIONS ABOUT US</Tag><h2>Frequently asked questions</h2></div><FAQ items={[...aboutFaq,...aboutMoreFaq]}/></section>
+  <section className="container inner-section faq-section"><div><Tag>QUESTIONS ABOUT US</Tag><h2>Frequently asked questions</h2></div><FAQ items={[...aboutFaq,...aboutMoreFaq,...aboutLastFaq]}/></section>
 </div>}
 
 /* ---------- Services hub: how to choose ---------- */
@@ -63,7 +63,7 @@ export function ServicesGuide(){return <div className="lf">
   <section className="container inner-section lf-split"><div><Tag>HOW SERVICES CONNECT</Tag><h2>Five groups, one plan.</h2><p className="lf-muted">Our thirty services are organised into five groups. Each group can stand alone, but the best results come when they are planned together around a shared goal.</p></div><ul className="lf-check">{serviceGroups.map(g=><li key={g.id}><Check size={16}/><span><strong>{g.name}.</strong> {groupDescriptions[g.id]} {groupSignals[g.id]} <em>Includes: {g.slugs.map(s=>services.find(x=>x.slug===s)?.name).filter(Boolean).join(', ')}.</em></span></li>)}</ul></section>
   <section className="container inner-section"><div className="section-top"><div><Tag>THE FIRST 30 DAYS</Tag><h2>What happens in the first month?</h2></div><p>Whichever service you start with, the first month follows a similar rhythm.</p></div><div className="lf-approach lf-four">{first30.map(([t,d],i)=><article className="lf-step reveal" key={t}><span>0{i+1}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
   <section className="container inner-section"><div className="section-top"><div><Tag>WHAT EVERY SERVICE INCLUDES</Tag><h2>The same standards, whichever service you choose.</h2></div></div><div className="lf-approach">{[[Target,'A written scope','Deliverables, timeline, review stages and responsibilities, agreed before work starts.'],[ShieldCheck,'Your ownership','Accounts, websites, data and creative stay in your name.'],[Users,'Named people','You know who is doing the work and who to call.'],[Clock,'Staged delivery','Work is reviewed in stages, so nothing goes public without your approval.'],[FileText,'Plain-language reporting','What changed, what it means and what we recommend next.'],[Wallet,'Transparent costs','Our fees are separate from media and creator budgets, which you pay directly.']].map(([I,t,d],i)=>{const Icon=I as typeof Target;return <article className="lf-step reveal" key={t as string}><span>0{i+1}</span><Icon size={20}/><h3>{t as string}</h3><p>{d as string}</p></article>})}</div></section>
-  <section className="container inner-section faq-section"><div><Tag>CHOOSING A SERVICE</Tag><h2>Frequently asked questions</h2></div><FAQ items={[...chooseFaq,...servicesMoreFaq]}/></section>
+  <section className="container inner-section faq-section"><div><Tag>CHOOSING A SERVICE</Tag><h2>Frequently asked questions</h2></div><FAQ items={[...chooseFaq,...servicesMoreFaq,...servicesLastFaq]}/></section>
 </div>}
 
 /* ---------- Contact: what happens next ---------- */
@@ -82,7 +82,7 @@ const contactBaseFaq:[string,string][]=[
   ['Do you work with clients outside Pakistan?','Yes. We work with clients in the United States and other countries. Calls are scheduled around your time zone and all reporting is in plain English.'],
   ['Is my information kept confidential?','Yes. Enquiries are used only to respond to you and plan the work. We sign non-disclosure agreements when a project requires it. See our privacy policy for details.'],
 ];
-export const contactFaq:[string,string][]=[...contactBaseFaq,...contactMoreFaq,...contactFinalFaq];
+export const contactFaq:[string,string][]=[...contactBaseFaq,...contactMoreFaq,...contactFinalFaq,...contactLastFaq];
 export function ContactGuide(){return <div className="lf">
   <section className="container inner-section"><div className="section-top"><div><Tag>WHAT HAPPENS NEXT</Tag><h2>What happens after you get in touch?</h2></div><p>No pressure and no sales script: a short, structured path from your message to a written proposal.</p></div><div className="lf-approach lf-four">{nextSteps.map(([t,d],i)=><article className="lf-step reveal" key={t}><span>0{i+1}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
   <section className="container inner-section lf-split"><div><Tag>WRITING A USEFUL BRIEF</Tag><h2>What should you include?</h2><p className="lf-muted">You do not need a formal document. A few sentences covering these points let us respond with something specific rather than generic.</p><Link className="outline" href="/tools/website-audit">Run a free website audit first <ArrowRight size={16}/></Link></div><Checklist items={briefTips}/></section>

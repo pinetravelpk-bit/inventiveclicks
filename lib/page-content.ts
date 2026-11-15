@@ -117,3 +117,16 @@ export const contactResponse=[
   ['Who you will speak to','Your first conversation is with a senior member of the team who will scope the work, not a sales representative reading from a script. The same person stays as your lead through the proposal and into delivery, and introduces the specialists who will do the work by name.'],
   ['Referrals and partnerships','Agencies, freelancers and consultants who need design, development or marketing capacity for their own clients are welcome to get in touch. We work on a white-label or partnership basis where it suits both sides, with clear boundaries on client ownership and communication.'],
 ];
+
+export const aboutLastFaq:[string,string][]=[
+  ['Do you work with agencies as a white-label partner?','Yes. Agencies and consultants use our design, development, SEO and paid-media teams behind the scenes for their own clients, with clear agreements on communication and client ownership.'],
+  ['How do you stay current with Google and AI search changes?','We test changes on our own properties and tools first, follow platform documentation and announcements, and review every client plan when search behaviour shifts, as it did with AI Overviews and answer engines.'],
+];
+export const servicesLastFaq:[string,string][]=[
+  ['Can I get a single service without a long-term contract?','Yes. Projects are fixed-scope, and monthly services run month to month after an initial period agreed in the proposal. We would rather earn each renewal than rely on a contract.'],
+  ['Do you provide services in Urdu as well as English?','Yes. Content, social media, advertising and customer support can be delivered in English, Urdu or both, depending on your audience in Pakistan or abroad.'],
+];
+export const contactLastFaq:[string,string][]=[
+  ['Can I visit your office?','Meetings in person can be arranged for clients in Pakistan by appointment. Most work, including with US clients, runs online with scheduled calls and shared review links.'],
+  ['Do you offer discounts for startups or charities?','We scope the smallest piece of work that will move the goal, which is usually the best saving. Where a cause or an early-stage budget calls for it, we will say what is possible in the proposal.'],
+];
