@@ -1,7 +1,7 @@
 // Website development portfolio shown on /portfolio. Screenshots live in public/portfolio/
 // (<slug>.webp at 1440x900 and <slug>-sm.webp at 800x500). Live links are intentionally
 // not published. Descriptions are based on each site's own content.
-export type Sector='healthcare'|'staffing'|'travel'|'business';
+export type Sector='healthcare'|'staffing'|'travel'|'education'|'business';
 export type Project={slug:string;name:string;sector:Sector;market:string;summary:string;features:string[];platform:string;accent:string};
 
 export const sectors:{id:Sector|'all';label:string}[]=[
@@ -9,7 +9,8 @@ export const sectors:{id:Sector|'all';label:string}[]=[
   {id:'healthcare',label:'Healthcare'},
   {id:'staffing',label:'Staffing & jobs'},
   {id:'travel',label:'Travel & hospitality'},
-  {id:'business',label:'Business & finance'},
+  {id:'education',label:'Education'},
+  {id:'business',label:'Business, legal & finance'},
 ];
 
 export const projects:Project[]=[
@@ -49,4 +50,19 @@ export const projects:Project[]=[
   {slug:'estaff',name:'eStaff.pk',sector:'staffing',market:'Pakistan, nationwide',platform:'Custom build',accent:'#00866c',
     summary:'Staffing and HR website for homes and businesses: domestic staff, recruitment, HR outsourcing, payroll and remote teams.',
     features:['Find staff / find a job search','Business solutions pages','City coverage pages','FAQ']},
+  {slug:'kaghannaran',name:'Kaghan Naran',sector:'travel',market:'Kaghan Valley, KPK, Pakistan',platform:'Next.js',accent:'#f2a33a',
+    summary:'Valley guide for the N-15 from Balakot to Babusar Top, with live road status, weather, a 3D route map and a verified directory of hotels, jeeps, guides and emergency services.',
+    features:['Live road & weather status','19-stop route with 3D terrain map','Verified business directory','Bilingual English & Urdu']},
+  {slug:'shogranvalley',name:'Shogran Valley',sector:'travel',market:'Shogran, Kaghan Valley, Pakistan',platform:'WordPress (custom theme)',accent:'#f08a2c',
+    summary:'Travel and booking site for Shogran and Siri Paye, bringing hotels, tour packages and 4x4 jeep rentals together with in-depth destination guides.',
+    features:['Hotel, tour & jeep booking enquiries','Destination guides','Travel FAQ & route planner','WhatsApp booking']},
+  {slug:'quraanosunnah',name:'Quraan o Sunnah',sector:'education',market:'Online, worldwide',platform:'WordPress (custom theme)',accent:'#1f6fe0',
+    summary:'Online Quran and Islamic academy offering one-to-one live classes in Quran, Tajweed, Hifz, Arabic, Islamic studies and school tutoring, with male and female teachers.',
+    features:['Course catalogue by category','Free trial enrolment','Teacher profiles & booking','Family discount plans']},
+  {slug:'hiredriver',name:'HireDriver.pk',sector:'staffing',market:'Islamabad, Rawalpindi & 13 cities, Pakistan',platform:'Custom build',accent:'#1e88e5',
+    summary:'Driver placement agency site for full-time family, personal and office drivers, with city and area search and clear one-time fee and replacement terms.',
+    features:['City, area & driver-type search','Driver service pages','Local area landing pages','Enquiry form & WhatsApp']},
+  {slug:'meralawyer',name:'MeraLawyer.pk',sector:'business',market:'Islamabad & Rawalpindi, Pakistan',platform:'Custom build',accent:'#c9a24a',
+    summary:'Legal services platform that matches clients with vetted advocates for family, criminal, property and corporate matters, plus company registration and tax filing.',
+    features:['Lawyer matching form','Practice-area pages','Fixed-fee legal services','Bilingual English & Urdu']},
 ];
