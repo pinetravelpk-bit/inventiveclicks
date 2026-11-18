@@ -10,7 +10,7 @@ export const business = {
     'Inventive Clicks is a creative and performance digital agency providing digital marketing, SEO, PPC, social media marketing, e-commerce marketing, web development, branding, content creation and remote staffing.',
   email: '',
   // International format, e.g. +92 300 0000000
-  telephone: '',
+  telephone: '+92 343 5853835',
   address: {
     streetAddress: '',
     addressLocality: '', // city
